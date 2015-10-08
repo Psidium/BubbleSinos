@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 /**
  *
- * @author NOME DOS ALUNOS DO GRUPO
+ * @author Cássia Canto Schuch, Gabriel Borges Fernandes
  */
 public class BubbleSinosPanel extends javax.swing.JPanel {
 

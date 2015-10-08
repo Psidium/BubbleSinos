@@ -144,45 +144,58 @@ public class BubbleSinosFrame extends javax.swing.JFrame {
 	}
 
 	private void play() {
-		if (matrix == null) {
-			return;
-		}
+            if (matrix == null) {
+                    return;
+            }
 
-		// TODO: Fazer tratamento de erro, caso não consiga converter para um número
-		int col = 0;
-		try {
-			col = Integer.valueOf(tfCol.getText());
-		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
-		}
+            // TODO: Fazer tratamento de erro, caso não consiga converter para um número
+            int col = 0;
+            try {
+                    col = Integer.valueOf(tfCol.getText());
+            } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+            }
 
-		// TODO: Fazer tratamento de erro, caso coluna seja inválida
-		int lin = -1;
-		try {
-			lin = matrix.adicionaElementoNaColuna(col, elemento);
-		} catch (ArrayIndexOutOfBoundsException e) {
-                    if(lin < matrix.getAltura())
-			JOptionPane.showMessageDialog(null, "Coluna inválida!");
-                    else
-                        JOptionPane.showMessageDialog(null, "Você perdeu!");
-		}
+            // TODO: Fazer tratamento de erro, caso coluna seja inválida
+            int lin = 0;
+            boolean erro = false;
+            try {
+                    lin = matrix.adicionaElementoNaColuna(col, elemento);
+                    int pontos = matrix.eliminaElementosConectados(col, lin);
+                    //printLog(matrix);
 
-		int pontos = matrix.eliminaElementosConectados(col, lin);
-		//printLog(matrix);
+                    totalPontos += pontos;
+                    lbPontos.setText("Pontos: " + totalPontos);
+                    erro = false;
+                    //matrix.preencheEspacosDosElementosEliminados(col, lin);
+                    //printLog(matrix);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                if(lin > matrix.getAltura() || lin < 0){
+                    JOptionPane.showMessageDialog(null, "Coluna inválida!");
+                    erro = true;
+                }
+                else{
+                    // TODO: detectar fim do jogo e reiniciar o jogo, se for o caso, ou sair.
+                    int op = JOptionPane.showConfirmDialog(null, "Você perdeu!\nDeseja iniciar uma nova partida?");
+                    if(op == 1)
+                        System.exit(0);
+                    else{
+                        erro = true;
+                        reiniciaJogo();
+                    }
+                }
+            }
+            
 
-		totalPontos += pontos;
-		lbPontos.setText("Pontos: " + totalPontos);
-//      matrix.preencheEspacosDosElementosEliminados(col, lin);
-		//printLog(matrix);
-
-		// TODO: detectar fim do jogo e reiniciar o jogo, se for o caso, ou sair.
-		elemento = sorteiaProximoElemento();
-		pnCor.setBackground(BubbleSinosPanel.getCorElemento(elemento));
-		if (deveGerarLinha()) {
-			matrix.adicionaLinhaDeElementosAleatorios();
-		}
-		printLog(matrix);
-		repaint();
+            if(!erro){
+                elemento = sorteiaProximoElemento();
+                pnCor.setBackground(BubbleSinosPanel.getCorElemento(elemento));
+                if (deveGerarLinha()) {
+                        matrix.adicionaLinhaDeElementosAleatorios();
+                }
+                printLog(matrix);
+                repaint();
+            }
 	}
 
 	private int sorteiaProximoElemento() {
@@ -207,4 +220,14 @@ public class BubbleSinosFrame extends javax.swing.JFrame {
 			return false;
 		}
 	}
+        
+        
+        private void reiniciaJogo(){
+            this.matrix = new BubbleMatrix(20,30);
+            matrix.adicionaLinhaDeElementosAleatorios();
+            this.bubbleSinosPanel1.setMatrix(matrix);
+            totalPontos = 0;
+            elemento = sorteiaProximoElemento();
+            pnCor.setBackground(BubbleSinosPanel.getCorElemento(elemento));
+        }
 }
