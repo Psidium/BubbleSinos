@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author NOME DOS ALUNOS DO GRUPO
+ * @author Cássia Canto Schuch, Gabriel Borges Fernandes
  */
 public class BubbleSinosFrame extends javax.swing.JFrame {
 
@@ -161,7 +161,10 @@ public class BubbleSinosFrame extends javax.swing.JFrame {
 		try {
 			lin = matrix.adicionaElementoNaColuna(col, elemento);
 		} catch (ArrayIndexOutOfBoundsException e) {
-			JOptionPane.showMessageDialog(null, "Coluna inválida");
+                    if(lin < matrix.getAltura())
+			JOptionPane.showMessageDialog(null, "Coluna inválida!");
+                    else
+                        JOptionPane.showMessageDialog(null, "Você perdeu!");
 		}
 
 		int pontos = matrix.eliminaElementosConectados(col, lin);
