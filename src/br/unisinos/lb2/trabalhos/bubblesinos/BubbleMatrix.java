@@ -10,7 +10,7 @@ import java.util.stream.Stream;
  * REQUISITO (OBRIGATÓRIO): - As assinaturas do métodos abaixo não podem ser
  * alteradas e nenhum método PUBLICO ou de pacote pode se criado.
  *
- * @author Gabriel Borges Fernandes
+ * @author Cássia Canto Schuch, Gabriel Borges Fernandes
  */
 public class BubbleMatrix {
 
@@ -64,7 +64,7 @@ public class BubbleMatrix {
 	public void inicializaMatriz(int larg, int alt) {
 		// TODO: inicializar / criar a matriz de elementos. Inicilizar linha de base, também.
 		matriz = new int[larg][alt];
-		linhaDeBase = 15;
+		linhaDeBase = 0;
 	}
 
 	public int eliminaElementosConectados(int col, int lin) {
@@ -193,32 +193,32 @@ public class BubbleMatrix {
 			}
 		}
         //se chegou aqui, é porque toda a coluna ta vazia, entao coloca na primeiro linha mesmo
-        matriz[col][0] = tipoElemento;
+                matriz[col][0] = tipoElemento;
 		return 0;
 
 
         //CASSIA: QUE QUE O SOR QUER COM A LINHA DE BASE AQUI MDDSDOCEU
 	}
 
-    //CASSIA: nao tem que trocar o x e o y da matriz aqui pra refletir o que se ve na GUI?
+        
 	@Override
 	public String toString() {
 		// TODO: fazer algoritmo que imprime matriz no formatada com bordas 
 		// formadas pelos caracteres: +, - e |
 		String imp = "";
-		for (int a = 0; a < matriz[0].length; a++) {
+		for (int a = 0; a < matriz.length; a++) {
 			imp += "+---";
 		}
 		imp += "+";
 
 		imp += "\n";
-		for (int i = 0; i < matriz.length; i++) {
+		for (int j = 0; j < matriz[0].length; j++) {
 			imp += "|";
-			for (int j = 0; j < matriz[0].length; j++) {
+			for (int i = 0; i < matriz.length; i++) {
 				imp += " " + matriz[i][j] + " |";
 			}
 			imp += "\n";
-			for (int a = 0; a < matriz[0].length; a++) {
+			for (int a = 0; a < matriz.length; a++) {
 				imp += "+---";
 			}
 			imp += "+";

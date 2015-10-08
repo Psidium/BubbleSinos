@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author NOME DOS ALUNOS DO GRUPO
+ * @author Cássia Canto Schuch, Gabriel Borges Fernandes
  */
 public class BubbleSinosFrame extends javax.swing.JFrame {
 
@@ -160,8 +160,8 @@ public class BubbleSinosFrame extends javax.swing.JFrame {
 		int lin = -1;
 		try {
 			lin = matrix.adicionaElementoNaColuna(col, elemento);
+                        
 		} catch (ArrayIndexOutOfBoundsException e) {
-			JOptionPane.showMessageDialog(null, "Coluna inválida");
 		}
 
 		int pontos = matrix.eliminaElementosConectados(col, lin);
@@ -173,13 +173,18 @@ public class BubbleSinosFrame extends javax.swing.JFrame {
 		//printLog(matrix);
 
 		// TODO: detectar fim do jogo e reiniciar o jogo, se for o caso, ou sair.
-		elemento = sorteiaProximoElemento();
-		pnCor.setBackground(BubbleSinosPanel.getCorElemento(elemento));
-		if (deveGerarLinha()) {
-			matrix.adicionaLinhaDeElementosAleatorios();
-		}
-		printLog(matrix);
-		repaint();
+                    elemento = sorteiaProximoElemento();
+                    pnCor.setBackground(BubbleSinosPanel.getCorElemento(elemento));
+                    if (deveGerarLinha()) {
+                            matrix.adicionaLinhaDeElementosAleatorios();
+                    }
+                    printLog(matrix);
+                    repaint();
+//                    int opt = JOptionPane.showConfirmDialog(null, "Fim de jogo! Você perdeu! Deseja jogar novamente?");
+//                   
+//                        System.exit(0);
+//                }
+		
 	}
 
 	private int sorteiaProximoElemento() {
