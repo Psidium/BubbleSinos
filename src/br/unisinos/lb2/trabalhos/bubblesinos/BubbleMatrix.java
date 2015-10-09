@@ -11,6 +11,7 @@ import java.util.stream.Stream;
  * alteradas e nenhum método PUBLICO ou de pacote pode se criado.
  *
  * @author Gabriel Borges Fernandes
+ * @author Cássia Canto Schuch
  */
 public class BubbleMatrix {
 
@@ -197,20 +198,6 @@ public class BubbleMatrix {
             }
                 
             return l;
-            
-        //gira pela coluna
-//		for (int i = matriz[col].length - 1; i >= 0; i--) {
-//            //procura um que tenha valor
-//			if (matriz[col][i] != 0) {
-//                //adiciona no anterior o quadrado
-//				matriz[col][i + 1] = tipoElemento;
-//                                linhaDeBase = i + 1;
-//				return i + 1;
-//			}
-//		}
-//        //se chegou aqui, é porque toda a coluna ta vazia, entao coloca na primeiro linha mesmo
-//                matriz[col][0] = tipoElemento;
-//		return 0;
 
 
 	}

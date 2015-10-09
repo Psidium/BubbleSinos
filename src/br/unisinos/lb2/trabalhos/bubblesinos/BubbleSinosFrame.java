@@ -4,7 +4,8 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Cássia Canto Schuch, Gabriel Borges Fernandes
+ * @author Gabriel Borges Fernandes
+ * @author Cássia Canto Schuch
  */
 public class BubbleSinosFrame extends javax.swing.JFrame {
 
@@ -153,7 +154,7 @@ public class BubbleSinosFrame extends javax.swing.JFrame {
             try {
                     col = Integer.valueOf(tfCol.getText());
             } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage());
+                    JOptionPane.showMessageDialog(null, "Insira um número válido!");
             }
 
             // TODO: Fazer tratamento de erro, caso coluna seja inválida

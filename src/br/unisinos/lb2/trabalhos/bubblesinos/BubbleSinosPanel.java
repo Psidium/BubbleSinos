@@ -5,7 +5,8 @@ import java.awt.Graphics;
 
 /**
  *
- * @author Cássia Canto Schuch, Gabriel Borges Fernandes
+ * @author Gabriel Borges Fernandes
+ * @author Cássia Canto Schuch
  */
 public class BubbleSinosPanel extends javax.swing.JPanel {
 
