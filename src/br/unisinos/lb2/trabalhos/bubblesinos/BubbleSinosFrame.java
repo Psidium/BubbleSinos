@@ -1,5 +1,9 @@
 package br.unisinos.lb2.trabalhos.bubblesinos;
 
+import java.util.Arrays;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -155,11 +159,12 @@ public class BubbleSinosFrame extends javax.swing.JFrame {
                     col = Integer.valueOf(tfCol.getText());
             } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "Insira um número válido!");
+                    repaint();
+                    return;
             }
 
             // TODO: Fazer tratamento de erro, caso coluna seja inválida
             int lin = 0;
-            boolean erro = false;
             try {
                     lin = matrix.adicionaElementoNaColuna(col, elemento);
                     int pontos = matrix.eliminaElementosConectados(col, lin);
@@ -167,36 +172,43 @@ public class BubbleSinosFrame extends javax.swing.JFrame {
 
                     totalPontos += pontos;
                     lbPontos.setText("Pontos: " + totalPontos);
-                    erro = false;
                     //matrix.preencheEspacosDosElementosEliminados(col, lin);
                     //printLog(matrix);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                if(lin > matrix.getAltura() || lin < 0){
-                    JOptionPane.showMessageDialog(null, "Coluna inválida!");
-                    erro = true;
-                }
-                else{
-                    // TODO: detectar fim do jogo e reiniciar o jogo, se for o caso, ou sair.
-                    int op = JOptionPane.showConfirmDialog(null, "Você perdeu!\nDeseja iniciar uma nova partida?");
-                    if(op == 1)
-                        System.exit(0);
-                    else{
-                        erro = true;
-                        reiniciaJogo();
+                    elemento = sorteiaProximoElemento();
+                    pnCor.setBackground(BubbleSinosPanel.getCorElemento(elemento));
+                    if (deveGerarLinha()) {
+                            matrix.adicionaLinhaDeElementosAleatorios();
                     }
+                    printLog(matrix);
+                    //se a soma da matriz der zero quer dizer que o cara venceu o jogo
+                    if (Stream.of(this.matrix.getMatriz()).flatMapToInt(IntStream::of).sum() == 0) {
+                    	fimDeJogo("Você venceu com "+ totalPontos +" pontos!\nDeseja iniciar uma nova partida?");
+                    }
+            		if(matrix.getLinhaDeBase() >= matrix.getAltura()) {
+            			fimDeJogo("Você perdeu!\nDeseja iniciar uma nova partida?");
+            		}
+                    repaint();
+            } catch (ArrayIndexOutOfBoundsException e) {
+                if(lin > matrix.getAltura() || lin <= 0){
+                    JOptionPane.showMessageDialog(null, "Coluna inválida!");
+                }else{
+                	fimDeJogo("Você perdeu!\nDeseja iniciar uma nova partida?");
                 }
             }
             
 
-            if(!erro){
-                elemento = sorteiaProximoElemento();
-                pnCor.setBackground(BubbleSinosPanel.getCorElemento(elemento));
-                if (deveGerarLinha()) {
-                        matrix.adicionaLinhaDeElementosAleatorios();
-                }
-                printLog(matrix);
-                repaint();
-            }
+            
+
+	}
+	
+	private void fimDeJogo(String msgm) {
+        // TODO: detectar fim do jogo e reiniciar o jogo, se for o caso, ou sair.
+        int op = JOptionPane.showConfirmDialog(null, msgm);
+        if(op == 1)
+            System.exit(0);
+        else{
+            reiniciaJogo();
+        }
 	}
 
 	private int sorteiaProximoElemento() {
@@ -224,7 +236,9 @@ public class BubbleSinosFrame extends javax.swing.JFrame {
         
         
         private void reiniciaJogo(){
-            this.matrix = new BubbleMatrix(20,30);
+        	int alt = this.matrix.getAltura();
+        	int larg = this.matrix.getLargura();
+            this.matrix = new BubbleMatrix(larg,alt);
             matrix.adicionaLinhaDeElementosAleatorios();
             this.bubbleSinosPanel1.setMatrix(matrix);
             totalPontos = 0;
