@@ -17,6 +17,7 @@ public class BubbleSinosFrame extends javax.swing.JFrame {
 	private int elemento;
 	private int totalPontos;
 	private int turnosParaGerarUmaLinha = 2;
+	
 	private int linhaAtual = 1;
 
 	/**
@@ -156,7 +157,7 @@ public class BubbleSinosFrame extends javax.swing.JFrame {
             // TODO: Fazer tratamento de erro, caso não consiga converter para um número
             int col = 0;
             try {
-                    col = Integer.valueOf(tfCol.getText());
+                    col = Integer.valueOf(tfCol.getText()) - 1;
             } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "Insira um número válido!");
                     repaint();
@@ -195,9 +196,6 @@ public class BubbleSinosFrame extends javax.swing.JFrame {
                 	fimDeJogo("Você perdeu!\nDeseja iniciar uma nova partida?");
                 }
             }
-            
-
-            
 
 	}
 	
