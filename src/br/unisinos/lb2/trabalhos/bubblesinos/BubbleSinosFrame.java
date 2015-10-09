@@ -169,8 +169,6 @@ public class BubbleSinosFrame extends javax.swing.JFrame {
             try {
                     lin = matrix.adicionaElementoNaColuna(col, elemento);
                     int pontos = matrix.eliminaElementosConectados(col, lin);
-                    //printLog(matrix);
-
                     totalPontos += pontos;
                     lbPontos.setText("Pontos: " + totalPontos);
                     //matrix.preencheEspacosDosElementosEliminados(col, lin);
@@ -190,7 +188,7 @@ public class BubbleSinosFrame extends javax.swing.JFrame {
             		}
                     repaint();
             } catch (ArrayIndexOutOfBoundsException e) {
-                if(lin > matrix.getAltura() || lin <= 0){
+                if(lin > matrix.getAltura() || lin < 0){
                     JOptionPane.showMessageDialog(null, "Coluna inválida!");
                 }else{
                 	fimDeJogo("Você perdeu!\nDeseja iniciar uma nova partida?");
